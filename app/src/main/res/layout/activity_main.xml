@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         app:titleTextColor="@android:color/white"
         app:title="ILLUMINATE"
-        android:background="@color/colorPrimary"
-
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

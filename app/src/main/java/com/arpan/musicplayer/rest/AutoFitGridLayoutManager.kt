@@ -16,7 +16,6 @@ class AutoFitGridLayoutManager(context: Context?, columnWidth: Int) : GridLayout
     private var columnWidthChanged = true
 
     init {
-
         setColumnWidth(columnWidth)
     }
 
