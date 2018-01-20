@@ -2,6 +2,7 @@ package com.arpan.musicplayer.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,6 +12,7 @@ import android.transition.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arpan.musicplayer.GlideApp
 import com.arpan.musicplayer.R
 import com.arpan.musicplayer.activity.MainActivity
 import com.arpan.musicplayer.adapter.ArtistListAdapter
@@ -29,14 +31,14 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
     lateinit var sceneA : Scene
     lateinit var sceneB : Scene
 
-    var ABOUT_ARTIST = resources.getString(R.string.lorem_ipsum)
+//    var ABOUT_ARTIST = resources.getString(R.string.lorem_ipsum)
 
     //TODO IMPLEMENT BACK PRESSED ACTION
 
     override fun handleClick(artist: Artist) {
 
         val detailsBundle = Bundle()
-        detailsBundle.putString("Details", ABOUT_ARTIST)
+//        detailsBundle.putString("Details", ABOUT_ARTIST)
 
         val fm = fragmentManager
         val previousFragment = fm!!.findFragmentById(R.id.RootFrame)
@@ -97,6 +99,13 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
 
 //        setUpTransitions()
 
+        GlideApp
+                .with(context)
+                .load(Uri.parse("file:///assets/img/artist_header.jpg"))
+                .placeholder(R.drawable.ic_compact_disc)
+                .into(artistFragmentHeaderIV)
+
+
         val loadArtistsTask = LoadArtistsTask()
         loadArtistsTask.execute()
     }
@@ -155,6 +164,14 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
                     val artist = Artist(artistName, null)
                     mArtistsList.add(artist)
                 } while (cursor.moveToNext())
+
+                //Remove items if more than 9
+                if (mArtistsList.size > 9) {
+                    for (i in 9..mArtistsList.size) {
+                        mArtistsList.removeAt(i)
+                    }
+                }
+
                 cursor.close()
             }
         }

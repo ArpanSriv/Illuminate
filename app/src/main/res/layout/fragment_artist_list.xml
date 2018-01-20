@@ -1,35 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/artistsListFragment"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_width="match_parent"
+    android:fillViewport="true">
 
-    <ImageView
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/artistsListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:visibility="visible"-->
-    <!--android:scrollbars="vertical"-->
-    <!--android:id="@+id/artistRecyclerView"/>-->
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
 
-    <!--<ProgressBar-->
-    <!--android:id="@+id/loadingProgressBar_artists"-->
-    <!--android:visibility="invisible"-->
-    <!--tools:visibility="visible"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--/>-->
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/artistFragmentHeaderIV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/artist_fragment_header_image"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/artistsLabel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/artists"-->
+            <!--android:textAllCaps="true"-->
+            <!--android:textColor="#FFFFFFFF"-->
+            <!--android:textSize="18sp"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintBottom_toBottomOf="@id/artistFragmentHeaderIV"-->
+            <!--app:layout_constraintEnd_toEndOf="@id/artistFragmentHeaderIV"-->
+            <!--app:layout_constraintHorizontal_bias="0.85"-->
+            <!--app:layout_constraintStart_toStartOf="@id/artistFragmentHeaderIV"-->
+            <!--app:layout_constraintTop_toTopOf="@id/artistFragmentHeaderIV" />-->
+
+        <TextView
+            android:id="@+id/topArtistsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/top_artists"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.23000002" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/artistRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:scrollbars="vertical"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topArtistsLabel" />
+
+        <ProgressBar
+            android:id="@+id/loadingProgressBar_artists"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topArtistsLabel"/>
+
+        <ImageView
+            android:id="@+id/artistFragmentFooterIV"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/artistRecyclerView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/browse_all_songs"
+            android:textColor="#FFFFFFFF"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/artistFragmentFooterIV"
+            app:layout_constraintEnd_toEndOf="@id/artistFragmentFooterIV"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="@id/artistFragmentFooterIV"
+            app:layout_constraintTop_toTopOf="@id/artistFragmentFooterIV"
+            app:layout_constraintVertical_bias="0.5" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</ScrollView>
