@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -37,6 +38,23 @@ class MainActivity : AppCompatActivity() {
         val PAUSE = 2
         val STOP = 0
         val RESUME = 4
+
+        fun px2Dp(px: Float, ctx: Context): Float {
+            return px / ctx.resources.displayMetrics.density
+        }
+
+        fun dp2Px(dp: Float?, ctx: Context?): Float? {
+            return if (dp != null) {
+                dp * ctx?.resources?.displayMetrics?.density!!
+            } else {
+                null
+            }
+        }
+
+    }
+
+    interface FetchUriResponse {
+        fun processFinish(artistImageUri: Uri?)
     }
 
     lateinit var mHorizontalViewPagerAdapter: HorizontalViewPagerAdapter
@@ -100,13 +118,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-    //    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-//        super.onCreateContextMenu(menu, v, menuInfo)
-//
-//        menuInflater.inflate(R.menu.overflow_menu, menu)
-//    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.overflow_menu, menu)
         return true
@@ -152,16 +163,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        slidingPanel.panelHeight = dp2Px(60F, this).toInt()
+        slidingPanel.panelHeight = dp2Px(60F, this)!!.toInt()
         slidingPanel.shadowHeight = 10
-    }
-
-    private fun px2Dp(px: Float, ctx: Context): Float {
-        return px / ctx.resources.displayMetrics.density
-    }
-
-    private fun dp2Px(dp: Float, ctx: Context): Float {
-        return dp * ctx.resources.displayMetrics.density
     }
 
     private fun requestPermission() {

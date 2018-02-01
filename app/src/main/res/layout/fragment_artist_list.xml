@@ -9,6 +9,8 @@
     android:background="@color/colorPrimaryDark"
     android:id="@+id/artistFragmentHolder">
 
+    <!-- TODO("Add favourite Artists Section") -->
+
     <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/artistsListFragment"
         android:descendantFocusability="blocksDescendants"
@@ -66,9 +68,9 @@
             android:id="@+id/artistRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:isScrollContainer="false"
+            android:visibility="visible"
             android:paddingLeft="8dp"
+            android:minHeight="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topArtistsLabel" />
@@ -77,6 +79,7 @@
             android:id="@+id/loadingProgressBar_artists"
             android:visibility="invisible"
             tools:visibility="visible"
+            android:indeterminate="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/artistRecyclerView"
@@ -96,6 +99,7 @@
             app:layout_constraintTop_toBottomOf="@id/artistRecyclerView" />
 
         <TextView
+            android:id="@+id/browseAllArtistsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/browse_all_songs"

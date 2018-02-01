@@ -1,6 +1,7 @@
 package com.arpan.musicplayer.fragment
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -22,6 +23,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.arpan.musicplayer.GlideApp
 import com.arpan.musicplayer.R
+import com.arpan.musicplayer.activity.ArtistActivity
 import com.arpan.musicplayer.activity.MainActivity
 import com.arpan.musicplayer.adapter.ArtistListAdapter
 import com.arpan.musicplayer.model.Artist
@@ -37,8 +39,12 @@ import org.json.JSONObject
 
 class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapter {
 
+    private val TAG = ArtistListFragment::class.java.simpleName
+
     private val MOVE_DEFAULT_TIME = 1000L
     private val FADE_DEFAULT_TIME = 300L
+
+    private val API_KEY = "8e71dd998e907fa081fdf059691e10c9"
 
     lateinit var sceneA : Scene
     lateinit var sceneB : Scene
@@ -54,7 +60,7 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
 
         val fm = fragmentManager
         val previousFragment = fm!!.findFragmentById(R.id.RootFrame)
-        val nextFragment = ArtistDescriptionFragment()
+        val nextFragment = AllArtistsFragment()
         val fragmentTransaction = fm.beginTransaction()
 
         val exitFade = Fade()
@@ -64,29 +70,30 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
         val enterTransitionSet = TransitionSet()
         enterTransitionSet.addTransition(TransitionInflater.from(context).inflateTransition(android.R.transition.move))
         enterTransitionSet.duration = MOVE_DEFAULT_TIME
-        enterTransitionSet.startDelay = FADE_DEFAULT_TIME
+//        enterTransitionSet.startDelay = FADE_DEFAULT_TIME
         nextFragment.sharedElementEnterTransition = enterTransitionSet
-
-        val enterTransitionSetForDescription = TransitionSet()
-        val slideDownTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_top)
-        slideDownTransition.duration = FADE_DEFAULT_TIME
-        slideDownTransition.addTarget(R.id.imageViewArtistDescription)
-        enterTransitionSet.addTransition(slideDownTransition)
+//
+//        val enterTransitionSetForAllArtists = TransitionSet()
+//        val fade = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_top)
+//        slideDownTransition.duration = FADE_DEFAULT_TIME
+//        slideDownTransition.addTarget(R.id.imageViewArtistDescription)
+//        enterTransitionSet.addTransition(slideDownTransition)
 
         val enterFade = Fade()
-        enterFade.addTarget(R.id.floatingActionButtonArtistDescription)
-        enterFade.startDelay = MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME
+        enterFade.addTarget(R.id.allArtistsLabel)
+        enterFade.addTarget(R.id.allArtistsRecyclerView)
+//        enterFade.startDelay = MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME
         enterFade.duration = FADE_DEFAULT_TIME
-        enterTransitionSetForDescription.addTransition(enterFade)
+//        enterTransitionSetForDescription.addTransition(enterFade)
 
-        val slideUpTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_bottom)
-        slideUpTransition.duration = FADE_DEFAULT_TIME
-        slideUpTransition.addTarget(R.id.artistTabsViewPager)
+//        val slideUpTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_bottom)
+//        slideUpTransition.duration = FADE_DEFAULT_TIME
+//        slideUpTransition.addTarget(R.id.artistTabsViewPager)
 
-        enterTransitionSetForDescription.addTransition(slideUpTransition)
+//        enterTransitionSetForDescription.addTransition(slideUpTransition)
         enterTransitionSet.ordering = TransitionSet.ORDERING_SEQUENTIAL
 
-        nextFragment.enterTransition = enterTransitionSetForDescription
+        nextFragment.enterTransition = enterTransitionSet
         fragmentTransaction.addSharedElement(artistArt_artistList, artistArt_artistList.transitionName)
         nextFragment.arguments = detailsBundle
         fragmentTransaction.replace(R.id.RootFrame, nextFragment)
@@ -129,24 +136,77 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
 
         val loadArtistsTask = LoadArtistsTask()
         loadArtistsTask.execute()
+
+        browseAllArtistsLabel.setOnClickListener {
+            performTransition()
+//            val artistActivityIntent = Intent(context, ArtistActivity::class.java)
+//            startActivity(artistActivityIntent)
+        }
+
+        artistFragmentFooterIV.setOnClickListener {
+//            val artistActivityIntent = Intent(context, ArtistActivity::class.java)
+//            startActivity(artistActivityIntent)
+        }
     }
 
-//    private fun setUpTransitions() {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//    }
+    private fun performTransition() {
+        val detailsBundle = Bundle()
+//        detailsBundle.putString("Details", ABOUT_ARTIST)
+
+        val fm = fragmentManager
+        val previousFragment = fm!!.findFragmentById(R.id.RootFrame)
+        val nextFragment = AllArtistsFragment()
+        val fragmentTransaction = fm.beginTransaction()
+
+        val exitFade = Fade()
+        exitFade.duration = FADE_DEFAULT_TIME
+        previousFragment.exitTransition = exitFade
+
+        val enterTransitionSet = TransitionSet()
+        enterTransitionSet.addTransition(TransitionInflater.from(context).inflateTransition(android.R.transition.move))
+        enterTransitionSet.duration = MOVE_DEFAULT_TIME
+//        enterTransitionSet.startDelay = FADE_DEFAULT_TIME
+        nextFragment.sharedElementEnterTransition = enterTransitionSet
+//
+//        val enterTransitionSetForAllArtists = TransitionSet()
+//        val fade = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_top)
+//        slideDownTransition.duration = FADE_DEFAULT_TIME
+//        slideDownTransition.addTarget(R.id.imageViewArtistDescription)
+//        enterTransitionSet.addTransition(slideDownTransition)
+
+        val enterFade = Fade()
+        enterFade.addTarget(R.id.allArtistsLabel)
+        enterFade.addTarget(R.id.allArtistsRecyclerView)
+//        enterFade.startDelay = MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME
+        enterFade.duration = FADE_DEFAULT_TIME
+//        enterTransitionSetForDescription.addTransition(enterFade)
+
+//        val slideUpTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_bottom)
+//        slideUpTransition.duration = FADE_DEFAULT_TIME
+//        slideUpTransition.addTarget(R.id.artistTabsViewPager)
+
+//        enterTransitionSetForDescription.addTransition(slideUpTransition)
+        enterTransitionSet.ordering = TransitionSet.ORDERING_SEQUENTIAL
+
+        nextFragment.enterTransition = enterTransitionSet
+        fragmentTransaction.addSharedElement(artistArt_artistList, artistArt_artistList.transitionName)
+        nextFragment.arguments = detailsBundle
+        fragmentTransaction.replace(R.id.RootFrame, nextFragment)
+        fragmentTransaction.commitAllowingStateLoss()
+
+        //TODO("TRANSFER DATA BETWEEN FRAGMENTS")
+    }
 
     private inner class LoadArtistsTask : AsyncTask<Void, Void, Void>() {
-
-        override fun doInBackground(vararg p0: Void?): Void? {
-//            val mainActivity = activity as MainActivity
-            loadArtists()
-            return null
-        }
 
         override fun onPreExecute() {
             loadingProgressBar_artists.visibility = View.VISIBLE
             artistRecyclerView.visibility = View.INVISIBLE
-            loadingProgressBar_artists.isIndeterminate = true
+        }
+
+        override fun doInBackground(vararg p0: Void?): Void? {
+            loadArtists()
+            return null
         }
 
         override fun onPostExecute(result: Void?) {
@@ -157,29 +217,13 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
     }
 
     private fun setUpRecyclerView() {
-        val adapter = ArtistListAdapter(context, mTopArtistsList)
+
+        val adapter = ArtistListAdapter(activity as MainActivity, context, mTopArtistsList)
         adapter.setAdapterCallback(this@ArtistListFragment)
         artistRecyclerView.adapter = adapter
 
         val layoutManager = GridLayoutManager(context, 3, LinearLayout.VERTICAL, false)
         artistRecyclerView.layoutManager = layoutManager
-        artistRecyclerView.isClickable = false
-
-        artistRecyclerView.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
-            override fun onTouchEvent(rv: RecyclerView?, e: MotionEvent?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onInterceptTouchEvent(rv: RecyclerView?, e: MotionEvent?): Boolean {
-                artistFragmentHolder.onInterceptTouchEvent(e)
-                return false
-            }
-
-            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-        })
     }
 
     private fun loadArtists() {
@@ -187,32 +231,23 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
         val sortOrder = MediaStore.Audio.Artists.ARTIST + " ASC"
         val uri = MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI
         val cursor = activity!!.contentResolver.query(uri, projection, null, null, sortOrder)
-
+        var count = 0
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
                     val artistName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Artists.ARTIST))
-//                    val noOfSongs = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS))
-////                    val albumId = cursor.getLong(cursor.getColumnIndex(ALBUM_ID))
-//                    val artistName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AlbumColumns.ARTIST))
-//                    val albumUri = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.AlbumColumns.ALBUM_ART))
-////                    val albumArtUri = Uri.parse(albumUri)
+                    val artist = Artist(artistName, null, null)
 
-                    val artist = Artist(artistName, null)
+                    if (count < 9) {
+
+                        if (artist.artistName == "Selena Gomez" || artist.artistName == "Demi Lovato" || artist.artistName == "Enrique Iglesias" || artist.artistName == "G-Eazy" || artist.artistName == "Chris Brown" || artist.artistName == "Taylor Swift" || artist.artistName == "ZAYN"|| artist.artistName == "NAV"|| artist.artistName == "Post Malone") {
+                            mTopArtistsList.add(artist)
+                            count++
+                        }
+                    }
+
                     mArtistsList.add(artist)
                 } while (cursor.moveToNext())
-
-                //Add items top Artists List
-
-                for (i in 0..8) {
-                    val artist = mArtistsList[i]
-                    val response = get("http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artist.artistName +  "&api_key=8e71dd998e907fa081fdf059691e10c9&format=json")
-                    val jsonArray = response.jsonArray
-                    //TODO("CONTINUE HERE")
-                    val imageURL = imageObject.
-                    mTopArtistsList.add(mArtistsList[i])
-                }
-
                 cursor.close()
             }
         }
