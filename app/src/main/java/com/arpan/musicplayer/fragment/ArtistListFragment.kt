@@ -240,10 +240,10 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
 
                     if (count < 9) {
 
-                        if (artist.artistName == "Selena Gomez" || artist.artistName == "Demi Lovato" || artist.artistName == "Enrique Iglesias" || artist.artistName == "G-Eazy" || artist.artistName == "Chris Brown" || artist.artistName == "Taylor Swift" || artist.artistName == "ZAYN"|| artist.artistName == "NAV"|| artist.artistName == "Post Malone") {
+//                        if (artist.artistName == "Selena Gomez" || artist.artistName == "Demi Lovato" || artist.artistName == "Enrique Iglesias" || artist.artistName == "G-Eazy" || artist.artistName == "Chris Brown" || artist.artistName == "Taylor Swift" || artist.artistName == "ZAYN"|| artist.artistName == "NAV"|| artist.artistName == "Post Malone") {
                             mTopArtistsList.add(artist)
                             count++
-                        }
+//                        }
                     }
 
                     mArtistsList.add(artist)
