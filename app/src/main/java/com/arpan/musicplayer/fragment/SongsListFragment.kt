@@ -65,7 +65,7 @@ class SongsListFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        val adapter = SongsListAdapter(context, activity as MainActivity, this, mSongsList)
+        val adapter = SongsListAdapter(context, activity as MainActivity, mSongsList)
         songsRecyclerView.adapter = adapter
         songsRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -92,7 +92,7 @@ class SongsListFragment : Fragment() {
 
                     val song = Song(songName, albumName, albumId, albumArtUri, artistName, songUrl, songDuration)
 
-                    mSongsList.add(song)
+                    mSongsList!!.add(song)
                     Log.d(TAG, "Song: Song Added" + song)
 
                     //Song song = new Song(name, albumName, albumId, albumArtUri, artistName, url, duration);
@@ -106,5 +106,8 @@ class SongsListFragment : Fragment() {
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        mSongsList.clear()
+    }
 }

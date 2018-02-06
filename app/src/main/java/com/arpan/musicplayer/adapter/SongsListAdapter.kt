@@ -1,12 +1,12 @@
 package com.arpan.musicplayer.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.arpan.musicplayer.GlideApp
 import com.arpan.musicplayer.activity.MainActivity
 import com.arpan.musicplayer.R
@@ -14,12 +14,12 @@ import com.arpan.musicplayer.fragment.SongsListFragment
 import com.arpan.musicplayer.model.Song
 import java.util.ArrayList
 
-import kotlinx.android.synthetic.main.song_list_item.view.*
+import kotlinx.android.synthetic.main.list_item_song.view.*
 
-class SongsListAdapter(private val mContext: Context?, private var mMainActivity: MainActivity, private val mSongsListFragment: SongsListFragment, private val mSongs: ArrayList<Song>) : RecyclerView.Adapter<SongsListAdapter.SongsViewHolder>() {
+class SongsListAdapter(private val mContext: Context?, private var mActivity: Activity, private val mSongs: ArrayList<Song>) : RecyclerView.Adapter<SongsListAdapter.SongsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongsViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.song_list_item, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.list_item_song, parent, false)
         return SongsViewHolder(view)
     }
 
@@ -52,7 +52,9 @@ class SongsListAdapter(private val mContext: Context?, private var mMainActivity
         }
 
         override fun onClick(view: View) {
-            mMainActivity.controlPlayer(MainActivity.PLAY, mSongs[adapterPosition], adapterPosition)
+            when {
+                mActivity is MainActivity-> (mActivity as MainActivity).controlPlayer(MainActivity.PLAY, mSongs[adapterPosition], adapterPosition)
+            }
         }
 
     }

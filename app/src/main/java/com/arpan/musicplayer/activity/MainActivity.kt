@@ -31,7 +31,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.fragment_music_controller.*
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MusicControllerFragment.ActivityListener {
 
     companion object {
         val PLAY = 1
@@ -125,7 +125,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unbindService(mServiceConnection)
     }
 
     override fun onBackPressed() {

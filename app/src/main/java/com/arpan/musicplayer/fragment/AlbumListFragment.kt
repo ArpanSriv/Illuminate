@@ -2,7 +2,6 @@ package com.arpan.musicplayer.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,7 +16,6 @@ import com.arpan.musicplayer.R
 import com.arpan.musicplayer.activity.MainActivity
 import com.arpan.musicplayer.adapter.AlbumListAdapter
 import com.arpan.musicplayer.model.Album
-
 import kotlinx.android.synthetic.main.fragment_album_list.*
 
 // Created on 12/19/2017
@@ -65,7 +63,6 @@ class AlbumListFragment: Fragment() {
         val adapter = AlbumListAdapter(context, mAlbumsList)
         albumsListRecyclerView.adapter = adapter
         albumsListRecyclerView.layoutManager = LinearLayoutManager(context)
-
     }
 
     fun loadAlbumInArray() {

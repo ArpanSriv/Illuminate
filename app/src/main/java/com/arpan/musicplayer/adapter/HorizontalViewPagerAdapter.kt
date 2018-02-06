@@ -13,4 +13,13 @@ class HorizontalViewPagerAdapter(fm: FragmentManager, private val fragments: Arr
     override fun getCount(): Int {
         return fragments.size
     }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+
+        return if (fragments[position].arguments!!.getString("FRAGMENT_TITLE") != null) {
+            fragments[position].arguments!!.getString("FRAGMENT_TITLE")
+        } else {
+            null
+        }
+    }
 }

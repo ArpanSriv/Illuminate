@@ -29,7 +29,7 @@ import com.arpan.musicplayer.adapter.ArtistListAdapter
 import com.arpan.musicplayer.model.Artist
 import kotlinx.android.synthetic.main.fragment_artist_list.*
 import com.arpan.musicplayer.rest.AutoFitGridLayoutManager
-import kotlinx.android.synthetic.main.artist_list_item.*
+import kotlinx.android.synthetic.main.list_item_artist.*
 import java.io.IOException
 import java.io.InputStream
 import khttp.get
@@ -194,7 +194,6 @@ class ArtistListFragment: Fragment(), ArtistListAdapter.HandleCallbackFromAdapte
         fragmentTransaction.replace(R.id.RootFrame, nextFragment)
         fragmentTransaction.commitAllowingStateLoss()
 
-        //TODO("TRANSFER DATA BETWEEN FRAGMENTS")
     }
 
     private inner class LoadArtistsTask : AsyncTask<Void, Void, Void>() {

@@ -20,4 +20,11 @@
     <string name="browse_all_songs">Browse All Artists</string>
     <string name="all_artists">ALL ARTISTS</string>
     <string name="about">About</string>
+    <string name="exclusive">Exclusive+</string>
+    <string name="songs">SONGS</string>
+    <string name="albums">albums</string>
+    <string name="artist_not_found">Sorry, could not fetch the details about %1$s.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

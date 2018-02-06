@@ -2,7 +2,7 @@ package com.arpan.musicplayer.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.LocalServerSocket
+import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.widget.RecyclerView
@@ -10,14 +10,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.arpan.musicplayer.GlideApp
 import com.arpan.musicplayer.R
+import com.arpan.musicplayer.activity.ArtistActivity
 import com.arpan.musicplayer.activity.MainActivity
-import com.arpan.musicplayer.model.Album
 import com.arpan.musicplayer.model.Artist
-import kotlinx.android.synthetic.main.artist_list_item.view.*
-import java.net.URL
+import kotlinx.android.synthetic.main.list_item_artist.view.*
 
 // Created on 12/19/2017
 
@@ -28,9 +26,9 @@ class ArtistListAdapter (
 
     private val TAG: String? = ArtistListAdapter::class.java.simpleName
 
-    private val API_KEY = "8e71dd998e907fa081fdf059691e10c9"
-
     lateinit var mCurrentArtist: Artist
+
+    private val API_KEY = "8e71dd998e907fa081fdf059691e10c"
 
     private lateinit var mCallbackHandler: HandleCallbackFromAdapter
 
@@ -43,7 +41,7 @@ class ArtistListAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.artist_list_item, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.list_item_artist, parent, false)
         return ViewHolder(view)
     }
 
@@ -64,7 +62,10 @@ class ArtistListAdapter (
         }
 
         override fun onClick(p0: View?) {
-            mCallbackHandler.handleClick(mCurrentArtist)
+//            mCallbackHandler.handleClick(mCurrentArtist)
+            val intent = Intent(mContext, ArtistActivity::class.java)
+            intent.putExtra("ARTIST_NAME", mArtistList[adapterPosition].artistName)
+            mContext!!.startActivity(intent)
         }
 
         fun bindViews(artist: Artist) {
